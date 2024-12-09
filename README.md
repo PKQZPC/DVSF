@@ -1,5 +1,5 @@
 # DVSF
-Efficient Streaming Voice Steganalysis in Challenging Detection Scenarios
+[Efficient Streaming Voice Steganalysis in Challenging Detection Scenarios](https://arxiv.org/abs/2411.13612)
 
 
 
