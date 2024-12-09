@@ -1,5 +1,5 @@
 # DVSF
-Efficient Steganalysis for Near Real-Time Streaming Voice
+Efficient Streaming Voice Steganalysis in Challenging Detection Scenarios
 
 
 
