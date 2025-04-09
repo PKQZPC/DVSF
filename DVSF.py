@@ -19,7 +19,7 @@ EPOCH = 300  # number of epoch
 FOLD = 5  # = NUM_SAMPLE / number of val samples
 Num_class = 2
 result_path = './Voip/DVSF/'# output file
-Num_layers = 1
+Num_layers = 2
 LAMDA = 0.05 # temperature 
 LR = 0.002 # learning rate
 BN_DIM = 300 # batch normalization dimension (qim 300 / pms 400 / qimpms 700)
@@ -261,6 +261,8 @@ class HAM(nn.Module):
         self.conv2 = nn.Conv1d(d_model, d_model, kernel_size=3, padding=1)
         self.conv_combined = nn.Conv1d(2 * d_model, d_model, kernel_size=3, padding=1)
 
+        #self.bn = nn.BatchNorm1d(num_features=BN_DIM)
+        
         # Add regularization term for weight decay
         self.weight_decay = 1e-5
 
@@ -640,7 +642,7 @@ def test_model_with_best_checkpoint(File_Embed, File_NoEmbed, emd_rate):
     model.load_state_dict(best_checkpoint['model'])
 
     x_test, y_test = get_alter_loaders_test(File_Embed, File_NoEmbed)
-    x_test = x_test[:, :, 0:3]
+    x_test = x_test[:, :, 0:3] ##QIM PMS[:, :, 3:]
 
     test_loader = convert_to_loader_test(x_test, y_test, BATCH_SIZE)
 
@@ -735,8 +737,8 @@ if __name__ == '__main__':
     print('\nEPOCH = ', EPOCH)
     print('Num_layers = ', Num_layers)
     x_train, y_train, x_val, y_val = get_alter_loaders()
-    x_train = x_train[:, :, 0:3]
-    x_val = x_val[:, :, 0:3]
+    x_train = x_train[:, :, 0:3]##QIM PMS[:, :, 3:]
+    x_val = x_val[:, :, 0:3]##QIM PMS[:, :, 3:]
     print(x_train.shape)
 
     y_val = y_val[:, 1:]
